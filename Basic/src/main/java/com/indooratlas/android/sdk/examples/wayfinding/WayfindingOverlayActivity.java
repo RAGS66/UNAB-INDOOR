@@ -115,7 +115,7 @@ public class WayfindingOverlayActivity extends FragmentActivity
                         .strokeWidth(5.0f));
                 mHeadingMarker = mMap.addMarker(new MarkerOptions()
                         .position(center)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_blue_dot))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo))
                         .anchor(0.5f, 0.5f)
                         .flat(true));
             }
