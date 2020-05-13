@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.indooratlas.android.sdk.examples.foregroundservice.MainActivity;
+import com.indooratlas.android.sdk.examples.wayfinding.WayfindingOverlayActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -17,7 +18,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent= new Intent(SplashScreen.this, ListExamplesActivity.class);
+                Intent intent= new Intent(SplashScreen.this, WayfindingOverlayActivity.class);
                 startActivity(intent);
             }
         },4000);
