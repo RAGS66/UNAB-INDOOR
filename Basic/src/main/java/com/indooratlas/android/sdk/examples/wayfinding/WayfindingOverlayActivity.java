@@ -78,7 +78,7 @@ public class WayfindingOverlayActivity extends FragmentActivity
             mCurrentRoute = route;
             if (hasArrivedToDestination(route)) {
                 // stop wayfinding
-                showInfo("You're there!");
+                showInfo("Has llegado a tu destino!!!");
                 mCurrentRoute = null;
                 mWayfindingDestination = null;
                 mIALocationManager.removeWayfindingUpdates();
@@ -103,7 +103,7 @@ public class WayfindingOverlayActivity extends FragmentActivity
 
     private void showLocationCircle(LatLng center, double accuracyRadius) {
         if (mCircle == null) {
-            // location can received before map is initialized, ignoring those updates
+            // la ubicación se puede recibir antes de que se inicialice el mapa, ignorando esas actualizaciones
             if (mMap != null) {
                 mCircle = mMap.addCircle(new CircleOptions()
                         .center(center)
@@ -120,7 +120,7 @@ public class WayfindingOverlayActivity extends FragmentActivity
                         .flat(true));
             }
         } else {
-            // move existing markers position to received location
+            // mueve la posición de los marcadores existentes a la ubicación recibida
             mCircle.setCenter(center);
             mHeadingMarker.setPosition(center);
             mCircle.setRadius(accuracyRadius);
@@ -227,11 +227,11 @@ public class WayfindingOverlayActivity extends FragmentActivity
     protected void onResume() {
         super.onResume();
 
-        // start receiving location updates & monitor region changes
+        // comienza a recibir actualizaciones de ubicacion y monitorea los cambios de region
         mIALocationManager.requestLocationUpdates(IALocationRequest.create(), mListener);
         mIALocationManager.registerRegionListener(mRegionListener);
         mIALocationManager.registerOrientationListener(
-                // update if heading changes by 1 degrees or more
+                // actualiza si el rumbo cambia 1 grado o mas
                 new IAOrientationRequest(1, 0),
                 mOrientationListener);
 
@@ -243,7 +243,7 @@ public class WayfindingOverlayActivity extends FragmentActivity
     @Override
     protected void onPause() {
         super.onPause();
-        // unregister location & region changes
+        // Aqui se anula el registro de cambios de ubicacion y region
         mIALocationManager.removeLocationUpdates(mListener);
         mIALocationManager.unregisterRegionListener(mRegionListener);
         mIALocationManager.unregisterOrientationListener(mOrientationListener);
@@ -454,12 +454,7 @@ public class WayfindingOverlayActivity extends FragmentActivity
         for (IARoute.Leg leg : mCurrentRoute.getLegs()) {
 
             if (leg.getEdgeIndex() == null) {
-                // Legs without an edge index are, in practice, the last and first legs of the
-                // route. They connect the destination or current location to the routing graph.
-                // All other legs travel along the edges of the routing graph.
 
-                // Omitting these "artificial edges" in visualization can improve the aesthetics
-                // of the route. Alternatively, they could be visualized with dashed lines.
                 continue;
             }
 
@@ -467,8 +462,8 @@ public class WayfindingOverlayActivity extends FragmentActivity
             opt.add(new LatLng(leg.getBegin().getLatitude(), leg.getBegin().getLongitude()));
             opt.add(new LatLng(leg.getEnd().getLatitude(), leg.getEnd().getLongitude()));
 
-            // Here wayfinding path in different floor than current location is visualized in
-            // a semi-transparent color
+            //  Aquí se visualiza la ruta de orientación en un piso diferente al de la ubicación actual en
+            // un color semitransparente
             if (leg.getBegin().getFloor() == mFloor && leg.getEnd().getFloor() == mFloor) {
                 opt.color(0xFF0000FF);
             } else {
@@ -479,3 +474,9 @@ public class WayfindingOverlayActivity extends FragmentActivity
         }
     }
 }
+// Legs without an edge index are, in practice, the last and first legs of the
+// route. They connect the destination or current location to the routing graph.
+// All other legs travel along the edges of the routing graph.
+
+// Omitting these "artificial edges" in visualization can improve the aesthetics
+// of the route. Alternatively, they could be visualized with dashed lines.
